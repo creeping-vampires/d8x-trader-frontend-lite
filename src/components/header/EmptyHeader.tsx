@@ -1,6 +1,6 @@
 import { Box, Toolbar, Typography } from '@mui/material';
 
-import { ReactComponent as LogoWithText } from 'assets/logoWithText.svg';
+import LogoWithText from 'assets/logoWithText.png';
 
 import { Container } from '../container/Container';
 import { LanguageSwitcher } from '../language-switcher/LanguageSwitcher';
@@ -16,7 +16,7 @@ export const EmptyHeader = () => (
           <Box className={styles.leftSide}>
             <Typography variant="h6" component="div">
               <a href="/" className={styles.logoLink}>
-                <LogoWithText width={86} height={20} />
+                <img src={LogoWithText} alt="logo" loading="lazy" className={styles.omnistratLogo} />
               </a>
             </Typography>
           </Box>
