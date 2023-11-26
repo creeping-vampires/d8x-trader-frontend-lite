@@ -1,3 +1,4 @@
+import { useAtom } from 'jotai';
 import classnames from 'classnames';
 import { memo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -5,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { DownloadOutlined } from '@mui/icons-material';
 import { Button, DialogActions, DialogContent } from '@mui/material';
 
-import { ReactComponent as LogoWithText } from 'assets/logoWithText.svg';
+import LogoWithText from 'assets/logoWithText.png';
+import LogoWithTextDark from 'assets/logoWithTextDark.png';
 import { Dialog } from 'components/dialog/Dialog';
 import { parseSymbol } from 'helpers/parseSymbol';
 import { MarginAccountWithAdditionalDataI } from 'types/types';
@@ -13,6 +15,7 @@ import { formatToCurrency } from 'utils/formatToCurrency';
 
 import { Background } from './Background';
 import styles from './ShareModal.module.scss';
+import { enabledDarkModeAtom } from 'store/app.store';
 
 interface ShareModalPropsI {
   isOpen: boolean;
@@ -23,6 +26,7 @@ interface ShareModalPropsI {
 export const ShareModal = memo(({ isOpen, selectedPosition, closeModal }: ShareModalPropsI) => {
   const { t } = useTranslation();
   const statsRef = useRef<HTMLDivElement>(null);
+  const [enabledDarkMode] = useAtom(enabledDarkModeAtom);
 
   if (!selectedPosition) {
     return null;
@@ -60,7 +64,11 @@ export const ShareModal = memo(({ isOpen, selectedPosition, closeModal }: ShareM
       <DialogContent className={styles.contentBlock}>
         <div ref={statsRef} className={styles.statsContainer}>
           <Background />
-          <LogoWithText width={129} height={30} />
+          {enabledDarkMode ? (
+            <img src={LogoWithTextDark} alt="logo" loading="lazy" className={styles.omnistratLogo} />
+          ) : (
+            <img src={LogoWithText} alt="logo" loading="lazy" className={styles.omnistratLogo} />
+          )}
           <div className={styles.titleBlock}>
             <span
               className={classnames({

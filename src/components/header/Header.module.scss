@@ -66,7 +66,7 @@
   }
 
   &.active {
-    color: var(--d8x-color-action);
+    color: var(--d8x-color-text-main);
     position: relative;
 
     &::after {
@@ -75,7 +75,7 @@
       left: 0;
       bottom: -$d8x-spacing;
       width: 100%;
-      border-bottom: 1px solid var(--d8x-color-action);
+      border-bottom: 1px solid var(--d8x-color-text-main);
     }
   }
 }
@@ -97,6 +97,12 @@
       border-bottom: none;
     }
   }
+}
+
+.omnistratLogo {
+  height: 30px;
+  margin-top: -5px;
+  margin-bottom: -5px;
 }
 
 .settings {
