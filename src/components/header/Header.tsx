@@ -7,7 +7,9 @@ import { type Address, useAccount, useBalance, useChainId, useNetwork } from 'wa
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Button, Divider, Drawer, Toolbar, Typography, useMediaQuery, useTheme } from '@mui/material';
 
-import LogoWithText from 'assets/logoWithText.png';
+import LogoWithText from 'assets/logoWithTextOnly.png';
+import LogoWithTextDark from 'assets/logoWithTextOnlyDark.png';
+
 import { createSymbol } from 'helpers/createSymbol';
 import { getExchangeInfo } from 'network/network';
 import { authPages, pages } from 'routes/pages';
@@ -30,6 +32,7 @@ import { WalletConnectButton } from '../wallet-connect-button/WalletConnectButto
 import { collateralsAtom } from './elements/market-select/collaterals.store';
 import { SettingsBlock } from './elements/settings-block/SettingsBlock';
 import { SettingsButton } from './elements/settings-button/SettingsButton';
+import { enabledDarkModeAtom } from 'store/app.store';
 
 import styles from './Header.module.scss';
 import { PageAppBar } from './Header.styles';
@@ -69,6 +72,7 @@ export const Header = memo(({ window }: HeaderPropsI) => {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const requestRef = useRef(false);
+  const [enabledDarkMode] = useAtom(enabledDarkModeAtom);
 
   const setExchangeInfo = useCallback(
     (data: ExchangeInfoI | null) => {
@@ -167,7 +171,11 @@ export const Header = memo(({ window }: HeaderPropsI) => {
   const drawer = (
     <>
       <Typography variant="h6" sx={{ my: 2, textAlign: 'center' }} onClick={handleDrawerToggle}>
-        <img src={LogoWithText} alt="logo" loading="lazy" className={styles.omnistratLogo} />
+        {enabledDarkMode ? (
+          <img src={LogoWithTextDark} alt="logo" loading="lazy" className={styles.omnistratLogo} />
+        ) : (
+          <img src={LogoWithText} alt="logo" loading="lazy" className={styles.omnistratLogo} />
+        )}
       </Typography>
       <Divider />
       <nav className={styles.navMobileWrapper} onClick={handleDrawerToggle}>
@@ -206,7 +214,11 @@ export const Header = memo(({ window }: HeaderPropsI) => {
             <Box className={styles.leftSide}>
               <Typography variant="h6" component="div">
                 <a href="/" className={styles.logoLink}>
-                  <img src={LogoWithText} alt="logo" loading="lazy" className={styles.omnistratLogo} />
+                  {enabledDarkMode ? (
+                    <img src={LogoWithTextDark} alt="logo" loading="lazy" className={styles.omnistratLogo} />
+                  ) : (
+                    <img src={LogoWithText} alt="logo" loading="lazy" className={styles.omnistratLogo} />
+                  )}
                 </a>
               </Typography>
               {!isTabletScreen && (

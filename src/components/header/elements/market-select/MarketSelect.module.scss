@@ -17,7 +17,7 @@
   min-width: 45px;
   border-radius: 50%;
   background-color: var(--d8x-color-background-items);
-  color: var(--d8x-color-action);
+  color: var(--d8x-color-text-main);
   margin-left: $d8x-spacing * 3;
 
   svg {
@@ -38,7 +38,7 @@
 }
 
 .arrowDropDown {
-  color: var(--d8x-color-action);
+  color: var(--d8x-color-text-main);
   padding-top: 2 * $d8x-spacing;
 }
 
@@ -77,7 +77,7 @@
 .selectedMarketValue {
   display: flex;
   flex-direction: column;
-  color: var(--d8x-color-action);
+  color: var(--d8x-color-text-main);
 
   .selectedMarketPerpetual {
     font-weight: 600;

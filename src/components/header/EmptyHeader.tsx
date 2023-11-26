@@ -1,6 +1,6 @@
 import { Box, Toolbar, Typography } from '@mui/material';
 
-import LogoWithText from 'assets/logoWithText.png';
+import LogoWithText from 'assets/logoWithTextOnly.png';
 
 import { Container } from '../container/Container';
 import { LanguageSwitcher } from '../language-switcher/LanguageSwitcher';
