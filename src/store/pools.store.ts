@@ -33,6 +33,7 @@ export const mainWsLatestMessageTimeAtom = atom(Date.now());
 export const loyaltyScoreAtom = atom(0);
 export const proxyABIAtom = atom<string[] | undefined>(undefined);
 export const poolTokenBalanceAtom = atom<number | undefined>(undefined);
+export const gasTokenSymbolAtom = atom<string | undefined>(undefined);
 export const poolTokenDecimalsAtom = atom<number | undefined>(undefined);
 export const tradesHistoryAtom = atom<TradeHistoryI[]>([]);
 export const fundingListAtom = atom<FundingI[]>([]);
@@ -168,7 +169,9 @@ export const positionsAtom = atom(
 export const openOrdersAtom = atom(
   (get): OrderWithIdI[] => {
     const orders = get(ordersAtom);
-    return Object.entries(orders).map(([key, value]) => ({ id: key, ...value }));
+    const ordersList = Object.entries(orders).map(([key, value]) => ({ id: key, ...value }));
+    const currentDateSeconds = Math.round(Date.now() / 1000);
+    return ordersList.filter((order) => order.deadline && order.deadline > currentDateSeconds);
   },
   (_get, set, openOrders: PerpetualOpenOrdersI) => {
     set(ordersAtom, (prev) => {

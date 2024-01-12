@@ -14,6 +14,7 @@ import { createSymbol } from 'helpers/createSymbol';
 import { getExchangeInfo } from 'network/network';
 import { authPages, pages } from 'routes/pages';
 import {
+  gasTokenSymbolAtom,
   oracleFactoryAddrAtom,
   perpetualsAtom,
   poolsAtom,
@@ -65,6 +66,7 @@ export const Header = memo(({ window }: HeaderPropsI) => {
   const setOracleFactoryAddr = useSetAtom(oracleFactoryAddrAtom);
   const setProxyAddr = useSetAtom(proxyAddrAtom);
   const setPoolTokenBalance = useSetAtom(poolTokenBalanceAtom);
+  const setGasTokenSymbol = useSetAtom(gasTokenSymbolAtom);
   const setPoolTokenDecimals = useSetAtom(poolTokenDecimalsAtom);
   const [triggerUserStatsUpdate] = useAtom(triggerUserStatsUpdateAtom);
   const [selectedPool] = useAtom(selectedPoolAtom);
@@ -149,6 +151,10 @@ export const Header = memo(({ window }: HeaderPropsI) => {
     enabled: !requestRef.current && address && chainId === chain?.id && !!selectedPool?.marginTokenAddr,
   });
 
+  const { data: gasTokenBalance, isError: isGasTokenFetchError } = useBalance({
+    address,
+  });
+
   useEffect(() => {
     if (address) {
       refetch().then().catch(console.error);
@@ -161,6 +167,12 @@ export const Header = memo(({ window }: HeaderPropsI) => {
       setPoolTokenDecimals(poolTokenBalance.decimals);
     }
   }, [selectedPool, chain, poolTokenBalance, isError, setPoolTokenBalance, setPoolTokenDecimals]);
+
+  useEffect(() => {
+    if (gasTokenBalance && !isGasTokenFetchError) {
+      setGasTokenSymbol(gasTokenBalance.symbol);
+    }
+  }, [isGasTokenFetchError, gasTokenBalance, setGasTokenSymbol]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
